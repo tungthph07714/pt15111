@@ -1,18 +1,22 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryPost extends Model
+class Category extends Model
 {
     use HasFactory;
-
-    protected $table = 'category_post';
-
+    protected $table = 'categories';
     protected $fillable = [
-        'category_id',
-        'post_id'
+        'parent_id',
+        'name',
+        'status',
     ];
+    public function posts() {
+        return $this->belongsToMany(Post::class, 'category_post', 'category_id', 'post_id');
+    }
+
+    public function parent() {
+        return $this->belongsTo(Category::class, 'parent_id', 'id');
+    }
 }
