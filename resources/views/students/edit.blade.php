@@ -1,51 +1,74 @@
 @extends('admin-layout.master')
+@section('title','Sua')
+@section('content-header','Sua Thong Tin $student->name')
 
-@section('title', 'Edit student')
-
-@section('content-header', "Edit student  $student->name")
 @section('content')
-    <form
-        method="POST"
-        action="{{route('students.update', $student->id) }}"
-    >
-        <!-- Them token gui len -->
+<form action="{{route('students.update',$student->id)}}" method="POST">
+    @csrf
+    <input type="hidden" name="_method" value="PUT">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="{{$tstudent->name}}">
+    </div>
+    <div>
+        <label for="phone">Phone</label>
+        <input type="text" name="phone" id="phone" value="{{$student->phone}}">
+    </div>
+    <div>
+        <label for="radio">Gender</label>
+        <input type="radio" name="gender" id="radio" value="0" {{$student->gender === 0 ? "checked" : ""}}>Nu
+        <input type="radio" name="gender" id="radio" value="1" {{$student->gender === 1 ? "checked" : ""}}>Nam
+        <input type="radio" name="gender" id="radio" value="2" {{$student->gender === 2 ? "checked" : ""}}>Khac
+    </div>
+    <div>
+        <label for="age">Age</label>
+        <input type="text" name="age" id="age" value="{{$student->age}}">
+    </div>
+    <div>
+        <label for="address">Address</label>
+        <input type="text" name="address" id="address" value="{{$student->address}}">
+    </div>
+    <div>
+        <label>Status</label>
+        <input type="radio" name="is_active" id="is_active" value="0" {{$student->is_active === 0 ? "checked" : ""}}> Khong kich hoat
+        <input type="radio" name="is_active" id="is_active" value="1" {{$student->is_active === 1 ? "checked" : ""}}> Kich hoat
+    </div>
+    <button type="submit" class="btn btn-primary">UPDATE</button>
+</form>
+<div class="col-4">
+    <form action="{{route('students.update',$student->id)}}" method="POST">
         @csrf
-        <!-- Thay doi phuong thuc gui request thanh PUT -->
-        <input type='hidden' name='_method' value='PUT' />
-        <div>
-            <label for='name'>Name</label>
-            <input id='name' type="text" name="name" value="{{$student->name}}" />
+        <input type="hidden" name="_method" value="PUT">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" value="{{$student->name}}">
         </div>
-        <div>
-            <label for='phone'>Phone</label>
-            <input id='phone' type="text" name="phone" value="{{$student->phone}}" />
+
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" name="phone" id="phone" value="{{$student->phone}}">
         </div>
-        <div>
-            <label for='age'>Age</label>
-            <input id='age' type="number" name="age" value="{{$student->age}}" />
+        <div class="form-group">
+            <label for="radio">Gender</label>
+            <input type="radio" name="gender" id="radio" value="0" {{$student->gender === 0 ? "checked" : ""}}>Nu
+            <input type="radio" name="gender" id="radio" value="1" {{$student->gender === 1 ? "checked" : ""}}>Nam
+            <input type="radio" name="gender" id="radio" value="2" {{$student->gender === 2 ? "checked" : ""}}>Khac
         </div>
-        <div>
-            <label for='address'>Address</label>
-            <input id='address' type="text" name="address" value="{{$student->address}}" />
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" name="age" id="age" value="{{$student->age}}">
         </div>
-        <div>
-            <label>Gender</label>
-            Nu
-            <input type="radio" name="gender" value="0" {{$student->gender === 0 ? "checked" : ""}} />
-            Nam
-            <input type="radio" name="gender" value="1" {{$student->gender === 1 ? "checked" : ""}} />
-            Khong xac dinh
-            <input type="radio" name="gender" value="2" {{$student->gender === 2 ? "checked" : ""}} />
+        <div class="form-group">
+            <label for="address">address</label>
+            <input type="text" class="form-control" name="address" id="address" value="{{$student->address}}">
         </div>
-        <div>
+        <div class="form-group">
             <label>Status</label>
-            Deactive
-            <input type="radio" name="is_active" value="0" {{$student->is_active === 0 ? "checked" : ""}} />
-            Active
-            <input type="radio" name="is_active" value="1" {{$student->is_active === 1 ? "checked" : ""}} />
+            <input type="radio" name="is_active" id="is_active" value="0" {{$student->is_active === 0 ? "checked" : ""}}> Khong kich hoat
+            <input type="radio" name="is_active" id="is_active" value="1" {{$student->is_active === 1 ? "checked" : ""}}> Kich hoat
         </div>
-        <div>
-            <button type='submit'>UPDATE</button>
-        </div>
+        <button type="submit" class="btn btn-primary">UPDATE</button>
+        <a href="{{route('students.index')}}"><button class="btn btn-secondary">Cancel</button></a>
     </form>
-@endsection
+</div>
+@endsection 
